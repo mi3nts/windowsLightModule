@@ -1,0 +1,4 @@
+
+0 09 * * * sudo reboot
+0 21 * * * sudo reboot
+@reboot ./makeVisible.sh
