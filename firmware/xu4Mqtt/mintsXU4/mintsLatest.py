@@ -19,7 +19,18 @@ mqttBroker          = mD.mqttBroker
 mqttCredentialsFile = mD.mqttCredentialsFile
 
 # FOR MQTT 
-credentials = yaml.load(open(mqttCredentialsFile))
+# credentials = yaml.load(open(mqttCredentialsFile))
+
+
+try:
+    with open(mqttCredentialsFile, 'r') as file:
+        credentials = yaml.load(file, Loader=yaml.FullLoader)
+        print(credentials)
+except FileNotFoundError:
+    print(f"The file {mqttCredentialsFile} does not exist.")
+except yaml.YAMLError as e:
+    print(f"Error loading YAML file: {e}")
+
 connected   = False  # Stores the connection status
 broker      = mqttBroker
 port        = mqttPort # Secure port
