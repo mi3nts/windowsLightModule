@@ -30,6 +30,7 @@ def main(portNum):
 
         while True:
             try:
+            # if (True):
                 for c in ser.read():
                     line.append(chr(c))
                     if chr(c) == '~':

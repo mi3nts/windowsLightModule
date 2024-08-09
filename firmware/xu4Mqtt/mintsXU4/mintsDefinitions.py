@@ -51,14 +51,14 @@ def findMacAddress():
 
 
 
-# dataFolderReference       = "/home/teamlary/mintsData/reference"
-# dataFolderMQTTReference   = "/home/teamlary/mintsData/referenceMQTT"
-dataFolder                = "C:\Users\yichao\Desktop\mintsData\raw"
-# dataFolderMQTT            = "/home/teamlary/mintsData/rawMQTT"
+dataFolderReference       = "C:/Users/yichao/Desktop/mintsData/reference"
+dataFolderMQTTReference   = "C:/Users/yichao/Desktop/mintsData/referenceMQTT"
+dataFolder                = "C:/Users/yichao/Desktop/mintsData/raw"
+dataFolderMQTT            = "C:/Users/yichao/Desktop/mintsData/rawMQTT"
 
 nanoPorts             = findNanoPorts()
 
-macAddress            = findMacAddress()
+macAddress            = "10004098"
 latestDisplayOn       = False
 latestOn              = False
 airmarPort            = findAirmarPort()

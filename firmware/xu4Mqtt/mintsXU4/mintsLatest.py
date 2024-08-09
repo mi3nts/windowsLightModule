@@ -36,7 +36,7 @@ broker      = mqttBroker
 port        = mqttPort # Secure port
 mqttUN      = credentials['mqtt']['username']  
 mqttPW      = credentials['mqtt']['password'] 
-tlsCert     = "/etc/ssl/certs/ca-certificates.crt"  # Put here the path of your TLS cert
+tlsCert     = "C:/Users/yichao/Desktop/certs/ca-certificates.crt"  # Put here the path of your TLS cert
 mqtt_client = mqttClient.Client()
 
 def on_connect(client, userdata, flags, rc):

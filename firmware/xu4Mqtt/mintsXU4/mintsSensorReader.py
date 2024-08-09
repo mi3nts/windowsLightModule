@@ -161,7 +161,8 @@ def sensorSend(sensorID,sensorData,dateTime):
 
 #  ADDED ON Aug 9th 2024 
 def AS7265XWrite(sensorData,dateTime):
-    dataOut    = sensorData.replace('*',',').split(',')
+    print("AS7265X--------")
+    dataOut    = sensorData.split(':')
     sensorName = "AS7265X"
     dataLength = 18
     print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
@@ -194,7 +195,7 @@ def AS7265XWrite(sensorData,dateTime):
 
 #  ADDED ON Aug 9th 2024 
 def LTR390V2Write(sensorData,dateTime):
-    dataOut    = sensorData.replace('*',',').split(',')
+    dataOut    = sensorData.split(':')
     sensorName = "LTR390V2"
     dataLength = 4
     print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
@@ -211,7 +212,7 @@ def LTR390V2Write(sensorData,dateTime):
 
 #  ADDED ON Aug 9th 2024 
 def GUVAS12SDV2Write(sensorData,dateTime):
-    dataOut    = sensorData.replace('*',',').split(',')
+    dataOut    = sensorData.split(':')
     sensorName = "GUVAS12SDV2"
     dataLength = 2
     print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
