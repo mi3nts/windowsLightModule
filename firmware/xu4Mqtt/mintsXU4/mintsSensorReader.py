@@ -157,10 +157,9 @@ def sensorSend(sensorID,sensorData,dateTime):
         LTR390V2Write(sensorData, dateTime)
     if(sensorID=="GUVAS12SDV2"):
         GUVAS12SDV2Write(sensorData, dateTime)
-
+    #  End ADDED ON Aug 9th 2024
 
 #  ADDED ON Aug 9th 2024 
-
 def AS7265XWrite(sensorData,dateTime):
     dataOut    = sensorData.replace('*',',').split(',')
     sensorName = "AS7265X"

@@ -51,10 +51,10 @@ def findMacAddress():
 
 
 
-dataFolderReference       = "/home/teamlary/mintsData/reference"
-dataFolderMQTTReference   = "/home/teamlary/mintsData/referenceMQTT"
-dataFolder                = "/home/teamlary/mintsData/raw"
-dataFolderMQTT            = "/home/teamlary/mintsData/rawMQTT"
+# dataFolderReference       = "/home/teamlary/mintsData/reference"
+# dataFolderMQTTReference   = "/home/teamlary/mintsData/referenceMQTT"
+dataFolder                = "C:\Users\yichao\Desktop\mintsData\raw"
+# dataFolderMQTT            = "/home/teamlary/mintsData/rawMQTT"
 
 nanoPorts             = findNanoPorts()
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     # the following code is for debugging
     # to make sure everything is working run python3 mintsDefinitions.py 
     print("Mac Address          : {0}".format(macAddress))
-    print("Data Folder Reference: {0}".format(dataFolderReference))
+    # print("Data Folder Reference: {0}".format(dataFolderReference))
     print("Data Folder Raw      : {0}".format(dataFolder))
     print("GPS Port             : {0}".format(gpsPort))
     print("Airmar Port           : {0}".format(airmarPort))
