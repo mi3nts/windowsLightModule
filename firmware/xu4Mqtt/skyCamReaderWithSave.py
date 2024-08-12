@@ -23,8 +23,8 @@ def main():
 
 
     onboardCapture = True
-   
-    try:
+    if True:
+    # try:
         start = time.time()
         currentImage,imagePath =  mSCR.getSnapShotXU4(subFolder)
         modelName = 'naiveBayesModel.sav'
@@ -39,8 +39,8 @@ def main():
         sensorDictionary  = mSCR.getResultsXU4002(currentImage,binaryImage,predictionBinary,prediction,imagePath,dateTimeNow)
         mSR.sensorFinisher(dateTimeNow,sensorName,sensorDictionary)
         mSCR.timeTaken("Preiction time is ",start)
-    except:
-        print("TRY AGAIN")
+    # except:
+    #     print("TRY AGAIN")
 
 
 if __name__ == "__main__":
