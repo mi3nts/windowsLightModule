@@ -33,6 +33,8 @@ def main():
         while True:
             try:
                 startTime = time.time()
+                dateTimeNow = datetime.datetime.now()
+                subFolder     = mSR.getWritePathSnaps(sensorName,dateTimeNow)
                 currentImage,imagePath =  mSCR.getSnapShotXU4(subFolder)
                 print("Sleeping for " + str(loopInterval) + " Seconds")
                 startTime = delayMints(time.time() - startTime,loopInterval)
