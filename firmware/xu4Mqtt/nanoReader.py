@@ -27,7 +27,7 @@ def main(portNum):
 
         #this will store the line
         line = []
-
+    try:
         while True:
             try:
             # if (True):
@@ -41,16 +41,18 @@ def main(portNum):
                         mSR.dataSplit(dataStringPost,datetime.datetime.now())
                         line = []
                         break
-            except KeyboardInterrupt:
-                print("\nKeyboardInterrupt received, stopping...")
             except Exception as e:
-                print("An unexpected error occurred:")
+                print("Exception occurred: Incomplete String Read")
                 traceback.print_exc()
-            finally:
-                ser.close()
-                print("Serial port closed.")
-
-
+                line = []
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, stopping...")
+    except Exception as e:
+        print("An unexpected error occurred:")
+        traceback.print_exc()
+    finally:
+        ser.close()
+        print("Serial port closed.")
 if __name__ == "__main__":
     print("=============")
     print("    MINTS    ")
