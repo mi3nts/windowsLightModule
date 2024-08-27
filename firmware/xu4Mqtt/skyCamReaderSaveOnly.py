@@ -11,7 +11,7 @@ from mintsXU4 import mintsSkyCamReader as mSCR
 from mintsXU4 import mintsSensorReader as mSR
 from mintsXU4 import mintsDefinitions as mD
 
-loopInterval = 300 # 5 minutes
+loopInterval = 60 # 5 minutes
 dataFolder = mD.dataFolder
 
 def delayMints(timeSpent,loopIntervalIn):
