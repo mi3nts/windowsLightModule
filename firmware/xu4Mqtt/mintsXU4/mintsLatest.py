@@ -25,7 +25,7 @@ mqttCredentialsFile = mD.mqttCredentialsFile
 try:
     with open(mqttCredentialsFile, 'r') as file:
         credentials = yaml.load(file, Loader=yaml.FullLoader)
-        print(credentials)
+        ## print(credentials)
 except FileNotFoundError:
     print(f"The file {mqttCredentialsFile} does not exist.")
 except yaml.YAMLError as e:
