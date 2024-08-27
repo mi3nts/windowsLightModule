@@ -19,6 +19,16 @@ def findNanoPorts():
             nanoPorts.append(str(p[0]).split(" ")[0])
     return nanoPorts        
 
+
+        
+def findGPSPorts():
+    ports = list(serial.tools.list_ports.comports())
+    nanoPorts = []
+    for p in ports:
+        nanoPort = str(p[2])
+        if(nanoPort.find("PID=1546:01A7")>=0):
+            nanoPorts.append(str(p[0]).split(" ")[0])
+    return nanoPorts    
   
 def findAirmarPort():
     ports = list(serial.tools.list_ports.comports())
@@ -69,7 +79,7 @@ mqttBroker               = "mqtt.circ.utdallas.edu"
 mqttPort                 =  8883  # Secure port
 
 
-gpsPort               = findPort("GPS/GNSS Receiver")
+gpsPorts              = findGPSPorts()
 
 
 if __name__ == "__main__":
@@ -78,7 +88,6 @@ if __name__ == "__main__":
     print("Mac Address          : {0}".format(macAddress))
     # print("Data Folder Reference: {0}".format(dataFolderReference))
     print("Data Folder Raw      : {0}".format(dataFolder))
-    print("GPS Port             : {0}".format(gpsPort))
     print("Airmar Port           : {0}".format(airmarPort))
     print("Latest On            : {0}".format(latestDisplayOn))
     print("Latest On                  : {0}".format(latestOn))
@@ -89,4 +98,8 @@ if __name__ == "__main__":
 
     print("Nano Ports :")
     for dev in nanoPorts:
+        print("\t{0}".format(dev))
+
+    print("GPS Ports :")
+    for dev in gpsPorts:
         print("\t{0}".format(dev))
