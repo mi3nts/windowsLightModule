@@ -9,7 +9,7 @@ from mintsXU4 import mintsDefinitions as mD
 from mintsXU4 import mintsSensorReader as mSR
 
 # Path to the CSV file
-csv_file = '../mintsData/MINTS_Minolta_10004098_2024_08_27_22.csv'
+monitor_directory = '../mintsData/MINTS_Minolta_10004098_2024_08_27_22.csv'
 
 nodeID   = mD.macAddress
 sensorID = "MIN001"
