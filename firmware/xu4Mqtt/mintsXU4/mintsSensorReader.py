@@ -150,6 +150,81 @@ def sensorSend(sensorID,sensorData,dateTime):
     if(sensorID=="AS3935"):
         AS3935Write(sensorData, dateTime)
     # End (Added on May 21 st, 2020 )
+    #  ADDED ON Aug 9th 2024
+    if(sensorID=="AS7265X"):
+        AS7265XWrite(sensorData, dateTime)
+    if(sensorID=="LTR390V2"):
+        LTR390V2Write(sensorData, dateTime)
+    if(sensorID=="GUVAS12SDV2"):
+        GUVAS12SDV2Write(sensorData, dateTime)
+    #  End ADDED ON Aug 9th 2024
+
+#  ADDED ON Aug 9th 2024 
+def AS7265XWrite(sensorData,dateTime):
+    print("AS7265X--------")
+    dataOut    = sensorData.split(':')
+    sensorName = "AS7265X"
+    dataLength = 18
+    print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
+    if(len(dataOut) ==(dataLength +1) and bool(dataOut[1])):
+        sensorDictionary = OrderedDict([
+                ("dateTime"       ,str(dateTime)),
+                ("channelA410nm",dataOut[0]),
+                ("channelA435nm",dataOut[1]),
+                ("channelA460nm",dataOut[2]),
+                ("channelA485nm",dataOut[3]),
+                ("channelA510nm",dataOut[4]),
+                ("channelA535nm",dataOut[5]),
+                ("channelA560nm",dataOut[6]),
+                ("channelA585nm",dataOut[7]),
+                ("channelA610nm",dataOut[8]),
+                ("channelA645nm",dataOut[9]),
+                ("channelA680nm",dataOut[10]),
+                ("channelA705nm",dataOut[11]),
+                ("channelA730nm",dataOut[12]),
+                ("channelA760nm",dataOut[13]),
+                ("channelA810nm",dataOut[14]),
+                ("channelA860nm",dataOut[15]),
+                ("channelA900nm",dataOut[16]),
+                ("channelA940nm",dataOut[17]),
+        	     ])
+
+        sensorFinisher(dateTime,sensorName,sensorDictionary)
+
+
+
+#  ADDED ON Aug 9th 2024 
+def LTR390V2Write(sensorData,dateTime):
+    dataOut    = sensorData.split(':')
+    sensorName = "LTR390V2"
+    dataLength = 4
+    print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
+    if(len(dataOut) ==(dataLength +1) and bool(dataOut[1])):
+        sensorDictionary   = OrderedDict([
+                ("dateTime"    ,str(dateTime)),
+                ("alsRead"     ,dataOut[0]),
+                ("als"         ,dataOut[1]),
+                ("uvsRead"     ,dataOut[2]),
+                ("uvs"         ,dataOut[3]),
+        	     ])
+
+        sensorFinisher(dateTime,sensorName,sensorDictionary)
+
+#  ADDED ON Aug 9th 2024 
+def GUVAS12SDV2Write(sensorData,dateTime):
+    dataOut    = sensorData.split(':')
+    sensorName = "GUVAS12SDV2"
+    dataLength = 2
+    print(sensorName+"-"+str(dataLength)+"-"+str(len(dataOut)))
+    if(len(dataOut) ==(dataLength +1) and bool(dataOut[1])):
+        sensorDictionary   = OrderedDict([
+                ("dateTime",str(dateTime)),
+                ("uvShunt" ,dataOut[0]),
+                ("uvBus"   ,dataOut[1]),
+        	     ])
+
+        sensorFinisher(dateTime,sensorName,sensorDictionary)
+
 
 # Added on Feb 13, 2023
 def RG15Write(sensorData, dateTime):

@@ -4,7 +4,7 @@ import datetime
 from mintsXU4 import mintsSensorReader as mSR
 from mintsXU4 import mintsDefinitions as mD
 import sys
-
+import traceback
 
 dataFolder  = mD.dataFolder
 nanoPorts   = mD.nanoPorts
@@ -27,9 +27,10 @@ def main(portNum):
 
         #this will store the line
         line = []
-
+    try:
         while True:
             try:
+            # if (True):
                 for c in ser.read():
                     line.append(chr(c))
                     if chr(c) == '~':
@@ -40,12 +41,18 @@ def main(portNum):
                         mSR.dataSplit(dataStringPost,datetime.datetime.now())
                         line = []
                         break
-            except:
-                print("Incomplete String Read")
+            except Exception as e:
+                print("Exception occurred: Incomplete String Read")
+                traceback.print_exc()
                 line = []
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, stopping...")
+    except Exception as e:
+        print("An unexpected error occurred:")
+        traceback.print_exc()
+    finally:
         ser.close()
-
-
+        print("Serial port closed.")
 if __name__ == "__main__":
     print("=============")
     print("    MINTS    ")
@@ -55,49 +62,3 @@ if __name__ == "__main__":
     print("Monitoring Arduino Nano on port: {0}".format(nanoPorts[portNum]) + " with baudrate " + str(baudRate))
     main(portNum)
 
-
-
-## OLD CODE
-# import serial
-# import datetime
-# from mintsXU4 import mintsSensorReader as mSR
-# from mintsXU4 import mintsDefinitions as mD
-#
-# dataFolder  = mD.dataFolder
-# nanoPorts    = mD.nanoPorts
-#
-# def main():
-#     if(len(nanoPorts)>1):
-#
-#         ser = serial.Serial(
-#         port= nanoPorts[1],\
-#         baudrate=9600,\
-#         parity  =serial.PARITY_NONE,\
-#         stopbits=serial.STOPBITS_ONE,\
-#         bytesize=serial.EIGHTBITS,\
-#         timeout=0)
-#
-#         print("connected to: " + ser.portstr)
-#
-#         #this will store the line
-#         line = []
-#
-#         while True:
-#             try:
-#                 for c in ser.read():
-#                     line.append(chr(c))
-#                     if chr(c) == '\n': # line ends at newline character
-#                     	dataString = ''.join(line)
-#                         dataStringPost = dataString.replace('\n', '')
-#                         print(dataStringPost)
-#                         mSR.dataSplit(dataStringPost,datetime.datetime.now())
-#                         line = []
-#                         break
-#             except:
-#                 print("Incomplete String Read")
-#                 line = []
-#         ser.close()
-#
-#
-# if __name__ == "__main__":
-#    main()

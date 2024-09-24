@@ -298,7 +298,8 @@ def getDateTimeFromPath(imagePath):
 
 
 def getPredictionMatrix(loadedModel,oneDImage):
-    prediction       = loadedModel.predict(oneDImage)
+    prediction       = loadedModel.predict( np.asarray(oneDImage))
+    print(prediction)
     predictionBinary = np.transpose(np.matrix(np.array(prediction)))
     predictionBinary[predictionBinary < 0.5]  = 0
     predictionBinary[predictionBinary >= 0.5] = 1
