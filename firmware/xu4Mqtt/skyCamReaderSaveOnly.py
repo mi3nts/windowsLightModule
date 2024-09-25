@@ -28,7 +28,6 @@ def main():
     dateTimeNow = datetime.datetime.now()
     subFolder     = mSR.getWritePathSnaps(sensorName,dateTimeNow)
 
-    # onboardCapture = True
     try:
         while True:
             try:
@@ -39,7 +38,6 @@ def main():
                 print("Sleeping for " + str(loopInterval) + " Seconds")
                 startTime = delayMints(time.time() - startTime,loopInterval)
             except Exception as e:
-                # Handle any exception
                 print(f"An unexpected error occurred: {e}")
 
     except KeyboardInterrupt:

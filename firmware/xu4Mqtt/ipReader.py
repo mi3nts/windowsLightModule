@@ -6,6 +6,7 @@ import netifaces as ni
 from collections import OrderedDict
 import netifaces as ni
 from requests import get
+import socket 
 
 from mintsXU4 import mintsSensorReader as mSR
 from mintsXU4 import mintsDefinitions  as mD
@@ -19,15 +20,20 @@ def main():
     dateTimeNow = datetime.datetime.now()
     print("Gaining Public and Private IPs")
 
+    # Getting the public IP address
     publicIp = get('https://api.ipify.org').text
-    #localIp  = ni.ifaddresses('docker0')[ni.AF_INET][0]['addr'] # Lab Machine
-    localIp = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr'] # Odroid XU4
 
-    sensorDictionary =  OrderedDict([
-            ("dateTime"     , str(dateTimeNow)),
-            ("publicIp"  ,str(publicIp)),
-            ("localIp"  ,str(localIp))
-            ])
+    # Getting the local IP address for Windows
+    hostname = socket.gethostname()
+    localIp  = socket.gethostbyname(hostname)
+
+    # Creating the sensor dictionary
+    sensorDictionary = OrderedDict([
+        ("dateTime", dateTimeNow.strftime('%Y-%m-%d %H:%M:%S.%f')),
+        ("publicIp", publicIp),
+        ("localIp", localIp)
+    ])
+
 
     mSR.sensorFinisherIP(dateTimeNow,sensorName,sensorDictionary)
 

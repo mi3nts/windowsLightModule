@@ -31,12 +31,10 @@ import math
 
 macAddress     = mD.macAddress
 dataFolder     = mD.dataFolder
-latestDisplayOn = mD.latestDisplayOn
 dataFolderMQTT = mD.dataFolderMQTT
 latestOn       = mD.latestOn
 mqttOn         = mD.mqttOn
-
-
+dataFolderReference = mD.dataFolderReference
 
 
 def sensorFinisher(dateTime,sensorName,sensorDictionary):
@@ -51,22 +49,18 @@ def sensorFinisher(dateTime,sensorName,sensorDictionary):
        mL.writeMQTTLatest(sensorDictionary,sensorName)   
 
     print("-----------------------------------")
-    print(sensorName)
-    print(sensorDictionary)
 
 
 def sensorFinisherReference(dateTime,sensorName,sensorDictionary):
     # Getting Write Path
-    print("-----------------------------------")
     writePath = getWritePathReference(sensorName,dateTime)
     exists    = directoryCheck(writePath)
     writeCSV2(writePath,sensorDictionary,exists)
     print(writePath)
-    if(latestDisplayOn):
-       mL.writeJSONLatestReference(sensorDictionary,sensorName)
-    print(sensorName)
-    print(sensorDictionary)
-    print("-----------------------------------")
+    if(mqttOn):
+       mL.writeMQTTLatest(sensorDictionary,sensorName)  
+
+    print("-----------=============-----------")
 
 
 def sensorFinisherIP(dateTime,sensorName,sensorDictionary):
@@ -75,8 +69,6 @@ def sensorFinisherIP(dateTime,sensorName,sensorDictionary):
     exists = directoryCheck(writePath)
     writeCSV2(writePath,sensorDictionary,exists)
     print(writePath)
-    if(latestDisplayOn):
-       mL.writeJSONLatest(sensorDictionary,sensorName)
     if(mqttOn):
        mL.writeMQTTLatest(sensorDictionary,sensorName)   
         
@@ -969,8 +961,6 @@ def GPSGPGGAWrite(dataString,dateTime):
 def GPSGPGGA2Write(dataString,dateTime):
     dataStringPost = dataString.replace('\n', '')
     sensorData = pynmea2.parse(dataStringPost)
-    latitudeCordinate = getLatitudeCords(sensorData.lat,sensorData.lat_dir)
-
     if(sensorData.gps_qual>0):
         sensorName = "GPSGPGGA2"
         sensorDictionary = OrderedDict([
@@ -997,7 +987,6 @@ def GPSGPGGA2Write(dataString,dateTime):
         sensorFinisher(dateTime,sensorName,sensorDictionary)
 
 def GPSGPRMCWrite(dataString,dateTime):
-
     dataStringPost = dataString.replace('\n', '')
     sensorData = pynmea2.parse(dataStringPost)
     if(sensorData.status=='A'):
@@ -1021,7 +1010,6 @@ def GPSGPRMCWrite(dataString,dateTime):
         sensorFinisher(dateTime,sensorName,sensorDictionary)
 
 def GPSGPRMC2Write(dataString,dateTime):
-
     dataStringPost = dataString.replace('\n', '')
     sensorData = pynmea2.parse(dataStringPost)
     if(sensorData.status=='A'):
@@ -1043,13 +1031,7 @@ def GPSGPRMC2Write(dataString,dateTime):
                 ("magVariationDirection",sensorData.mag_var_dir)
                  ])
 
-        #Getting Write Path
         sensorFinisher(dateTime,sensorName,sensorDictionary)
-
-
-
-
-
 
 def writeCSV2(writePath,sensorDictionary,exists):
     keys =  list(sensorDictionary.keys())
@@ -1060,19 +1042,10 @@ def writeCSV2(writePath,sensorDictionary,exists):
             writer.writeheader()
         writer.writerow(sensorDictionary)
 
-
-# def writeHDF5Latest(writePath,sensorDictionary,sensorName):
-#     try:
-#         dd.io.save(dataFolder+sensorName+".h5", sensorDictionary)
-#     except:
-#         print("Data Conflict!")
-
-
 def getWritePathIP(labelIn,dateTime):
     #Example  : MINTS_0061.csv
     writePath = dataFolder+"/"+macAddress+"/"+"MINTS_"+ macAddress+ "_IP.csv"
     return writePath;
-
 
 def getWritePathSnaps(labelIn,dateTime):
     #Example  : MINTS_0061_OOPCN3_2019_01_04.csv
@@ -1082,7 +1055,6 @@ def getWritePathSnaps(labelIn,dateTime):
 def getWritePathReference(labelIn,dateTime):
     #Example  : MINTS_0061_OOPCN3_2019_01_04.csv
     writePath = dataFolderReference+"/"+macAddress+"/"+str(dateTime.year).zfill(4)  + "/" + str(dateTime.month).zfill(2)+ "/"+str(dateTime.day).zfill(2)+"/"+ "MINTS_"+ macAddress+ "_" +labelIn + "_" + str(dateTime.year).zfill(4) + "_" +str(dateTime.month).zfill(2) + "_" +str(dateTime.day).zfill(2) +".csv"
-
     return writePath;
 
 

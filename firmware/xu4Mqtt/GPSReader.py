@@ -36,7 +36,7 @@ def main():
                     if chr(c) == '\n':
                         dataString = (''.join(line))
                         dateTime = datetime.datetime.now()
-                        print(dataString)
+                        # print(dataString)
                         if dataString.startswith("$GPGGA") and mSR.getDeltaTime(lastGPGGA, delta):
                             mSR.GPSGPGGA2Write(dataString, dateTime)
                             lastGPGGA = time.time()

@@ -8,16 +8,16 @@ import datetime
 from mintsXU4 import mintsDefinitions as mD
 from mintsXU4 import mintsSensorReader as mSR
 
-# Path to the CSV file
-monitor_directory = '../mintsData/MINTS_Minolta_10004098_2024_08_27_22.csv'
-
-nodeID   = mD.macAddress
-sensorID = "MIN001"
-
 
 import pandas as pd
 import datetime
 from collections import OrderedDict
+
+# Path to the CSV file
+monitor_directory = 'C:/Users/yichao/Desktop/Minolta/10004098'
+
+nodeID   = mD.macAddress
+sensorID = "MIN001"
 
 def csv_to_ordered_dict(csv_file):
     # Read the CSV file and get the last row
@@ -80,13 +80,11 @@ def csv_to_ordered_dict(csv_file):
 
 class ChangeHandler(FileSystemEventHandler):
     def on_modified(self, event):
-        # Ensure the modified file is a CSV file
         if event.src_path.endswith('.csv'):
             print(f"File changed: {event.src_path}, processing...")
             try:
-                # Process the specific CSV file
                 dateTime, sensorDictionary = csv_to_ordered_dict(event.src_path)
-                mSR.sensorFinisher(dateTime, sensorID, sensorDictionary)
+                mSR.sensorFinisherReference(dateTime, sensorID, sensorDictionary)
             except Exception as e:
                 print(f"Error processing file {event.src_path}: {e}")
 

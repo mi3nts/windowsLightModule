@@ -41,23 +41,16 @@ def findAirmarPort():
   
 
 def findMacAddress():
-    macAddress= get_mac_address(interface="eth0")
-    if (macAddress!= None):
-        return macAddress.replace(":","")
-
-    macAddress= get_mac_address(interface="docker0")
-    if (macAddress!= None):
-        return macAddress.replace(":","")
-
-    macAddress= get_mac_address(interface="enp1s0")
-    if (macAddress!= None):
-        return macAddress.replace(":","")
-
-    macAddress= get_mac_address(interface="wlan0")
-    if (macAddress!= None):
-        return macAddress.replace(":","")
-
+    # List of potential interfaces to check
+    interfaces = ["Ethernet", "Wi-Fi", "docker0", "eth0", "enp1s0", "en0", "en1", "en2", "wlan0"]
+    
+    for interface in interfaces:
+        macAddress = get_mac_address(interface=interface)
+        if macAddress is not None:
+            return macAddress.replace(":", "")
+    
     return "xxxxxxxx"
+
 
 
 
@@ -67,39 +60,27 @@ dataFolder                = "C:/Users/yichao/Desktop/mintsData/raw"
 dataFolderMQTT            = "C:/Users/yichao/Desktop/mintsData/rawMQTT"
 
 nanoPorts             = findNanoPorts()
-
-macAddress            = "10004098"
-latestDisplayOn       = False
-latestOn              = False
+latestOn              =True
+macAddress            = findMacAddress()
 airmarPort            = findAirmarPort()
 # For MQTT 
-mqttOn                    = True
+mqttOn                   = True
 mqttCredentialsFile      = 'mintsXU4/credentials.yml'
 mqttBroker               = "mqtt.circ.utdallas.edu"
 mqttPort                 =  8883  # Secure port
 
 
-gpsPorts              = findGPSPorts()
+gpsPorts                 = findGPSPorts()
 
 
 if __name__ == "__main__":
-    # the following code is for debugging
-    # to make sure everything is working run python3 mintsDefinitions.py 
-    print("Mac Address          : {0}".format(macAddress))
-    # print("Data Folder Reference: {0}".format(dataFolderReference))
-    print("Data Folder Raw      : {0}".format(dataFolder))
-    print("Airmar Port           : {0}".format(airmarPort))
-    print("Latest On            : {0}".format(latestDisplayOn))
-    print("Latest On                  : {0}".format(latestOn))
-    print("MQTT On                    : {0}".format(mqttOn))
-    print("MQTT Credentials File      : {0}".format(mqttCredentialsFile))
-    print("MQTT Broker and Port       : {0}, {1}".format(mqttOn,mqttPort))
-   #-------------------------------------------#
 
-    print("Nano Ports :")
+    print("Mac Address: {0}".format(macAddress))
+
+    print("Nano Ports:")
     for dev in nanoPorts:
         print("\t{0}".format(dev))
 
-    print("GPS Ports :")
+    print("GPS Ports:")
     for dev in gpsPorts:
         print("\t{0}".format(dev))
