@@ -1,3 +1,5 @@
+#This is the python script for training and testing the conformal prediction model
+
 #Import packages
 import pandas as pd
 import numpy as np
